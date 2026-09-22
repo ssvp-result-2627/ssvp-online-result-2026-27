@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SSVP Online Examination Form — 2026-27</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#eef2f7;color:#172033;font-family:Arial,Helvetica,sans-serif}
+button,input,select{font:inherit}
+.header{background:#061a43;color:#fff;min-height:82px;padding:12px 22px;display:flex;align-items:center;justify-content:center;text-align:center}
+.brand h1{font-size:23px;margin:0;letter-spacing:.4px}
+.brand p{margin:5px 0 0;font-size:14px}
+.wrap{max-width:1050px;margin:25px auto;padding:0 14px}
+.login-card,.form-card,.success-card{max-width:470px;margin:45px auto;background:#fff;border-radius:15px;padding:28px;box-shadow:0 8px 28px #0002;border-top:5px solid #d6a94d}
+.form-card{max-width:600px}
+.login-card h2,.form-card h2,.success-card h2{text-align:center;color:#0b2454;margin:0 0 8px}
+.hint{text-align:center;color:#6b7280;font-size:13px;margin-bottom:20px}
+label{display:block;font-weight:700;margin:14px 0 6px;color:#25334d}
+input,select{width:100%;padding:13px 14px;border:1px solid #c8d1df;border-radius:8px;outline:0;font-size:16px;background:#fff}
+input:focus,select:focus{border-color:#173c76;box-shadow:0 0 0 3px #173c7620}
+input[readonly]{background:#f4f7fb;color:#24385c}
+.auto-roll-code{margin-top:8px;padding:9px 12px;border:1px dashed #d3a247;border-radius:7px;background:#fffaf0;color:#0b2454;font-size:13px;font-weight:700;text-align:center}
+.btn{width:100%;border:0;border-radius:8px;padding:14px;margin-top:20px;color:#fff;background:#0a2a60;font-weight:700;cursor:pointer;font-size:16px}
+.btn:disabled{opacity:.65;cursor:not-allowed}
+.btn.secondary{background:#fff;color:#0a2a60;border:1px solid #0a2a60}
+.message{text-align:center;min-height:20px;margin-top:14px;font-weight:700;line-height:1.45}
+.error{color:#c62828}.success{color:#17743b}
+.student{background:#f7faff;border:1px solid #d6e1f0;border-radius:10px;padding:15px;line-height:1.9}
+.subject-box{background:#f8fbff;border:1px solid #d6e1f0;border-radius:10px;padding:14px;margin-top:14px}
+.subject-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.subject-item{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #dbe3ee;border-radius:8px;padding:10px;font-weight:600;color:#24385c}
+.subject-item input{width:auto;margin:0}
+.subject-note{font-size:12px;color:#667085;margin-top:8px}
+@media(max-width:520px){.subject-list{grid-template-columns:1fr}}
+.hidden{display:none}
+.declaration{display:flex;gap:9px;align-items:flex-start;font-weight:600;font-size:14px;line-height:1.5}
+.declaration input{width:auto;margin-top:4px}
+.form-id{font-size:15px;background:#f7faff;border:1px dashed #9eb0c8;border-radius:8px;padding:12px;margin:15px 0;color:#0b2454}
+.footer{text-align:center;color:#6b7280;font-size:12px;padding:15px}
+.small-note{text-align:center;color:#667085;font-size:12px;margin-top:12px}
+.form-status{margin:0 auto 16px;max-width:600px;padding:12px 14px;border-radius:9px;text-align:center;font-weight:700;border:1px solid #dbe3ee;background:#f8fbff;color:#0b2454}.form-status.closed{background:#fff0f0;border-color:#f1b5b5;color:#a32020}.form-status.open{background:#effaf3;border-color:#b8dfc5;color:#176b3a}
+@media(max-width:800px){
+ .header{padding:10px 12px}.brand h1{font-size:17px}.brand p{font-size:11px}
+ .wrap{padding:0 8px;margin:15px auto}
+ .login-card,.form-card,.success-card{margin:20px auto;padding:22px}
+}
+
+.success-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.submitted-print-card{background:#fff;color:#111;padding:24px;border-radius:14px;margin-top:18px;text-align:left;border:1px solid #ddd}
+.submitted-print-card h2{text-align:center;margin:0 0 16px}
+.submitted-print-card .print-row{padding:7px 0;border-bottom:1px solid #eee}
+.submitted-print-card .print-subjects{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.submitted-print-card .print-subject{border:1px solid #bbb;border-radius:6px;padding:5px 9px}
+@media print{body *{visibility:hidden !important}#submittedPrintCard,#submittedPrintCard *{visibility:visible !important}#submittedPrintCard{position:absolute;left:0;top:0;width:100%;margin:0!important;border:0!important;border-radius:0!important}.success-actions,.footer{display:none!important}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">
+    <h1>SHREE SHANKARACHARYA VIDYAPITH</h1>
+    <p>ONLINE EXAMINATION FORM • SESSION 2026–27</p>
+  </div>
+</header>
+
+<div class="wrap">
+<div id="formStatus" class="form-status">Checking Examination Form status...</div>
+
+<section class="login-card" id="loginBox">
+  <h2>📝 Examination Form</h2>
+  <div class="hint">Result Portal की तरह Class चुनें — Roll Code अपने-आप आएगा</div>
+
+  <label for="classSelect">Class</label>
+  <select id="classSelect">
+    <option value="">Select Class</option>
+    <option value="Nursery">Nursery</option>
+    <option value="LKG">LKG</option>
+    <option value="UKG">UKG</option>
+    <option value="Class 1">Class 1</option>
+    <option value="Class 2">Class 2</option>
+    <option value="Class 3">Class 3</option>
+    <option value="Class 4">Class 4</option>
+    <option value="Class 5">Class 5</option>
+    <option value="Class 6">Class 6</option>
+    <option value="Class 7">Class 7</option>
+    <option value="Class 8">Class 8</option>
+  </select>
+
+  <div id="rollCodeAuto" class="auto-roll-code">Roll Code: —</div>
+
+  <label for="rollNo">Roll No</label>
+  <input id="rollNo" type="text" inputmode="numeric" autocomplete="off" placeholder="Enter Roll No">
+
+  <label for="pin">6-Digit PIN</label>
+  <input id="pin" type="password" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="Enter 6-digit PIN">
+
+  <button class="btn" id="verifyBtn" onclick="verifyStudent()">Verify Student</button>
+  <div id="message" class="message"></div>
+  <div class="small-note">आपके Result Portal में दिया गया वही 6-digit PIN इस्तेमाल करें।</div>
+</section>
+
+<section class="form-card hidden" id="formBox">
+  <h2>विद्यार्थी की जानकारी</h2>
+
+  <div class="student">
+    <b>Name:</b> <span id="showName">—</span><br>
+    <b>Class:</b> <span id="showClass">—</span><br>
+    <b>Roll Code:</b> <span id="showCode">—</span><br>
+    <b>Roll No:</b> <span id="showNo">—</span>
+  </div>
+
+  <h2 style="margin-top:22px">Examination Details</h2>
+
+  <label for="father">Father's Name *</label>
+  <input id="father" placeholder="पिता का नाम" autocomplete="name">
+
+  <label for="mother">Mother's Name</label>
+  <input id="mother" placeholder="माता का नाम">
+
+  <label for="mobile">Parent Mobile Number *</label>
+  <input id="mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10 digit mobile number">
+
+  <div class="subject-box">
+    <label style="margin-top:0">Subjects *</label>
+    <div id="subjectList" class="subject-list"></div>
+    <div class="subject-note">अपने Class के अनुसार जिन Subjects के लिए form भरना है, उन्हें select करें।</div>
+  </div>
+
+  <label for="examination">Examination *</label>
+  <select id="examination">
+    <option value="2nd Terminal Examination 2026–27">2nd Terminal Examination 2026–27</option>
+    <option value="Annual Examination 2026–27">Annual Examination 2026–27</option>
+  </select>
+
+  <label class="declaration">
+    <input type="checkbox" id="agree">
+    <span>मैं घोषणा करता/करती हूँ कि दी गई जानकारी सही है और मैं Examination Form जमा करने के लिए सहमत हूँ।</span>
+  </label>
+
+  <button class="btn" id="submitBtn" onclick="submitForm()">Submit Examination Form</button>
+  <button class="btn secondary" onclick="goBack()">← Back</button>
+  <div id="examMessage" class="message"></div>
+</section>
+
+<section class="success-card hidden" id="successBox">
+  <div class="success">
+    <h2>✅ Form Successfully Submitted!</h2>
+    <p>आपका Examination Form सफलतापूर्वक जमा हो गया है।</p>
+    <div class="form-id"><b>Form ID:</b> <span id="successFormId">—</span></div>
+    <p>Form अब Admin Panel में verification के लिए दिखाई देगा।</p>
+  </div>
+  <div class="success-actions">
+    <button class="btn" onclick="printSubmittedForm()">🖨️ Print / Save as PDF</button>
+    <button class="btn" onclick="downloadSubmittedImage()">🖼️ Download Image</button>
+    <button class="btn secondary" onclick="location.reload()">New Form</button>
+  </div>
+  <div id="submittedPrintCard" class="submitted-print-card"></div>
+</section>
+
+</div>
+
+<div class="footer">SHREE SHANKARACHARYA VIDYAPITH • Online Examination Form • 2026–27</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const SUPABASE_URL="https://segjroxhejogwqrxyncm.supabase.co";
+const SUPABASE_KEY="sb_publishable_Hng9Y_3-PVVr11zP4LAYxg_oM7Do3cm";
+
+const ROLL_CODES={
+  "Nursery":"SSVP-NUR-2627",
+  "LKG":"SSVP-LKG-2627",
+  "UKG":"SSVP-UKG-2627",
+  "Class 1":"SSVP-01-2627",
+  "Class 2":"SSVP-02-2627",
+  "Class 3":"SSVP-03-2627",
+  "Class 4":"SSVP-04-2627",
+  "Class 5":"SSVP-05-2627",
+  "Class 6":"SSVP-06-2627",
+  "Class 7":"SSVP-07-2627",
+  "Class 8":"SSVP-08-2627"
+};
+
+const SUBJECTS_BY_CLASS={
+  "Nursery":["Maths","English","Hindi","English Poem","Hindi Poem"],
+  "LKG":["Maths","English","Hindi","English Poem","Hindi Poem"],
+  "UKG":["Hindi","English","Maths","SST"],
+  "Class 1":["Hindi","English","Maths","Science","SST","Sanskrit","GK + COMPUTER","Drawing","Neatness","Handicrafts","Music"],
+  "Class 2":["Hindi","English","Maths","Science","SST","Sanskrit","GK + COMPUTER","Drawing","Neatness","Handicrafts","Music"],
+  "Class 3":["Hindi","English","Maths","Science","SST","Sanskrit","GK + COMPUTER","Drawing","Neatness","Handicrafts","Music"],
+  "Class 4":["Hindi","English","Maths","Science","SST","Sanskrit","GK + COMPUTER","Drawing","Neatness","Handicrafts","Music"],
+  "Class 5":["Hindi","English","Maths","Science","SST","Sanskrit","GK + COMPUTER","Drawing","Neatness","Handicrafts","Music"],
+  "Class 6":["Hindi","English","Maths","Science","SST","Sanskrit","GK + COMPUTER","Drawing","Neatness","Handicrafts","Music"],
+  "Class 7":["Hindi","English","Maths","Science","SST","Sanskrit","GK + COMPUTER","Drawing","Neatness","Handicrafts","Music"],
+  "Class 8":["Hindi","English","Maths","Science","SST","Sanskrit","GK + COMPUTER","Drawing","Neatness","Handicrafts","Music"]
+};
+
+let currentStudent=null;
+let currentPin="";
+let examFormOpen=true;
+
+async function checkExamFormStatus(){
+  const box=$("formStatus");
+  try{
+    const r=await fetch(SUPABASE_URL+"/rest/v1/rpc/get_exam_form_status",{
+      method:"POST",headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Accept":"application/json"},body:"{}"
+    });
+    if(!r.ok) throw new Error(await r.text());
+    const d=await r.json();
+    const x=Array.isArray(d)?d[0]:d;
+    // Support all status-field versions safely. The effective status must
+    // also respect the closing timestamp.
+    const effectiveField = x?.effective_open ?? x?.effective_is_open ?? x?.is_open;
+    const closeTime = x?.closes_at ? new Date(x.closes_at) : null;
+    examFormOpen = effectiveField !== undefined
+      ? !!effectiveField
+      : (!!x?.is_open && (!closeTime || Date.now() < closeTime.getTime()));
+    if(closeTime && Date.now() >= closeTime.getTime()) examFormOpen=false;
+    if(examFormOpen){
+      box.className="form-status open";
+      box.textContent=x?.closes_at?"🟢 Examination Form Open • Closing: "+new Date(x.closes_at).toLocaleString("en-IN"):"🟢 Examination Form is Open";
+      $("verifyBtn").disabled=false;
+      return true;
+    }
+    box.className="form-status closed";
+    box.textContent="🔒 Examination Form submission is currently closed.";
+    $("verifyBtn").disabled=true;
+    $("submitBtn").disabled=true;
+    return false;
+  }catch(e){
+    console.error(e);
+    // Do not block a student solely because the status check failed; the server RPC remains authoritative.
+    box.className="form-status";
+    box.textContent="Status check unavailable. Server submission rules will be applied.";
+    return null;
+  }
+}
+
+const $=id=>document.getElementById(id);
+
+function updateAutoRollCode(){
+  const cls=$("classSelect").value;
+  $("rollCodeAuto").textContent="Roll Code: "+(ROLL_CODES[cls]||"—");
+}
+function renderSubjects(cls, selected=[]){
+  const box=$("subjectList");
+  const list=SUBJECTS_BY_CLASS[cls]||[];
+  const selectedSet=new Set((selected||[]).map(String));
+  box.innerHTML=list.length?list.map(subject=>`<label class="subject-item"><input type="checkbox" name="subjects" value="${String(subject).replace(/"/g,'&quot;')}" ${selectedSet.has(subject)?"checked":""}> <span>${subject}</span></label>`).join(""):'<div class="subject-note">पहले Class चुनें।</div>';
+}
+
+$("classSelect").addEventListener("change",()=>{updateAutoRollCode();renderSubjects($("classSelect").value);});
+renderSubjects("");
+checkExamFormStatus();
+
+function setMessage(id,text,type){
+  const el=$(id);
+  el.textContent=text;
+  el.className="message"+(type?" "+type:"");
+}
+
+async function verifyStudent(){
+  const status=await checkExamFormStatus();
+  if(status===false){setMessage("message","🔒 Examination Form submission अभी बंद है।","error");return;}
+  const cls=$("classSelect").value.trim();
+  const rollNo=$("rollNo").value.trim();
+  const pin=$("pin").value.trim();
+  const rollCode=ROLL_CODES[cls];
+  const btn=$("verifyBtn");
+
+  setMessage("message","","");
+
+  if(!cls||!rollNo||!pin){
+    setMessage("message","कृपया Class, Roll No और PIN भरें।","error");
+    return;
+  }
+  if(!rollCode){
+    setMessage("message","कृपया सही Class चुनें।","error");
+    return;
+  }
+  if(!/^\d{6}$/.test(pin)){
+    setMessage("message","PIN 6 digit का होना चाहिए।","error");
+    return;
+  }
+
+  btn.disabled=true;
+  btn.textContent="Verifying...";
+  setMessage("message","Student verify किया जा रहा है...","");
+
+  try{
+    const r=await fetch(SUPABASE_URL+"/rest/v1/rpc/parent_check_result",{
+      method:"POST",
+      headers:{
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer "+SUPABASE_KEY,
+        "Content-Type":"application/json",
+        "Accept":"application/json"
+      },
+      body:JSON.stringify({
+        p_pin:pin,
+        p_roll_code:rollCode,
+        p_roll_no:rollNo
+      })
+    });
+
+    if(!r.ok) throw new Error(await r.text());
+
+    const data=await r.json();
+    const student=Array.isArray(data)?data[0]:data;
+
+    if(!student){
+      setMessage("message","Roll Code / Roll No / PIN गलत है या Result Published नहीं है।","error");
+      return;
+    }
+
+    if(student.published!==true){
+      setMessage("message","यह Result अभी Published नहीं है।","error");
+      return;
+    }
+
+    currentStudent=student;
+    currentPin=pin;
+
+    $("showName").textContent=student.name||student.student_name||"—";
+    $("showClass").textContent=student.class_name||student.class||cls;
+    $("showCode").textContent=student.roll_code||rollCode;
+    $("showNo").textContent=student.roll_no||rollNo;
+    renderSubjects(cls);
+
+    $("father").value=student.father_name||"";
+    $("mother").value=student.mother_name||"";
+    $("mobile").value=student.mobile_number||student.parent_mobile||student.mobile||"";
+
+    $("loginBox").classList.add("hidden");
+    $("formBox").classList.remove("hidden");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }catch(e){
+    console.error(e);
+    setMessage("message","Login में समस्या हुई। Supabase RPC/RLS settings जाँचें।","error");
+  }finally{
+    btn.disabled=false;
+    btn.textContent="Verify Student";
+  }
+}
+
+async function submitForm(){
+  if(!currentStudent){
+    setMessage("examMessage","पहले Student Verify करें।","error");
+    return;
+  }
+
+  const father=$("father").value.trim();
+  const mother=$("mother").value.trim();
+  const mobile=$("mobile").value.replace(/\D/g,"");
+  const examination=$("examination").value.trim();
+  const subjects=Array.from(document.querySelectorAll('input[name="subjects"]:checked')).map(x=>x.value);
+  const declaration=$("agree").checked;
+  const rollCode=String(currentStudent.roll_code||ROLL_CODES[$("classSelect").value]||"").trim();
+  const rollNo=String(currentStudent.roll_no||$("rollNo").value.trim()).trim();
+
+  if(!father){
+    setMessage("examMessage","कृपया Father's Name भरें।","error");
+    $("father").focus();
+    return;
+  }
+  if(mobile.length!==10){
+    setMessage("examMessage","कृपया 10 digit Parent Mobile Number भरें।","error");
+    $("mobile").focus();
+    return;
+  }
+  if(!subjects.length){
+    setMessage("examMessage","कृपया कम-से-कम एक Subject select करें।","error");
+    return;
+  }
+  if(!declaration){
+    setMessage("examMessage","कृपया Declaration पर tick करें।","error");
+    return;
+  }
+
+  const formId="FORM-"+Date.now();
+  const btn=$("submitBtn");
+  btn.disabled=true;
+  btn.textContent="Submitting...";
+  setMessage("examMessage","Exam Form submit हो रहा है...","");
+
+  const payload={
+    p_roll_code:rollCode, p_roll_no:rollNo, p_pin:currentPin, p_form_id:formId,
+    p_father_name:father, p_mother_name:mother, p_parent_mobile:mobile,
+    p_examination:examination, p_declaration:true, p_subjects:subjects
+  };
+
+  try{
+    const r=await fetch(SUPABASE_URL+"/rest/v1/rpc/submit_exam_form_with_window",{
+      method:"POST",
+      headers:{
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer "+SUPABASE_KEY,
+        "Content-Type":"application/json",
+        "Accept":"application/json"
+      },
+      body:JSON.stringify(payload)
+    });
+
+    const responseText=await r.text();
+    if(!r.ok) throw new Error(responseText || ("HTTP "+r.status));
+
+    // Supabase RPC can return JSON, an empty response, or a scalar depending
+    // on the SQL function return type. Handle all three safely.
+    let data=null;
+    if(responseText && responseText.trim()){
+      try{ data=JSON.parse(responseText); }catch(_){ data=null; }
+    }
+    const row=Array.isArray(data)?data[0]:data;
+    const finalId=row?.submission_id||row?.form_id||formId;
+
+    $("successFormId").textContent=finalId;
+    const printCard=$("submittedPrintCard");
+    printCard.innerHTML = `
+      <h2>SHREE SHANKARACHARYA VIDYAPITH</h2>
+      <div style="text-align:center;margin-bottom:14px"><b>Online Examination Form • 2026–27</b></div>
+      <div class="print-row"><b>Student Name:</b> ${escapeHtml(currentStudent.name||"")}</div>
+      <div class="print-row"><b>Class:</b> ${escapeHtml($("classSelect").value)}</div>
+      <div class="print-row"><b>Roll Code:</b> ${escapeHtml(rollCode)}</div>
+      <div class="print-row"><b>Roll No:</b> ${escapeHtml(rollNo)}</div>
+      <div class="print-row"><b>Father's Name:</b> ${escapeHtml(father)}</div>
+      <div class="print-row"><b>Mother's Name:</b> ${escapeHtml(mother)}</div>
+      <div class="print-row"><b>Parent Mobile:</b> ${escapeHtml(mobile)}</div>
+      <div class="print-row"><b>Examination:</b> ${escapeHtml(examination)}</div>
+      <div class="print-row"><b>Form ID:</b> ${escapeHtml(finalId)}</div>
+      <div class="print-row"><b>Selected Subjects:</b><div class="print-subjects">${subjects.map(x=>`<span class="print-subject">${escapeHtml(x)}</span>`).join("")}</div></div>
+    `;
+    $("formBox").classList.add("hidden");
+    $("successBox").classList.remove("hidden");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }catch(e){
+    console.error(e);
+    const detail=String(e?.message||e||"").replace(/\s+/g," ").trim();
+    setMessage("examMessage","❌ Exam Form submit नहीं हुआ। Supabase RPC settings जाँचें।"+(detail?" ["+detail.slice(0,220)+"]":""),"error");
+  }finally{
+    btn.disabled=false;
+    btn.textContent="Submit Examination Form";
+  }
+}
+
+function escapeHtml(value){
+  return String(value ?? "").replace(/[&<>'"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"}[ch]));
+}
+
+function printSubmittedForm(){
+  window.print();
+}
+
+async function downloadSubmittedImage(){
+  const card=$("submittedPrintCard");
+  if(!card || !card.innerHTML){
+    alert("पहले Form submit करें।");
+    return;
+  }
+  if(typeof html2canvas === "undefined"){
+    alert("Image download library load नहीं हुई। Internet connection check करें।");
+    return;
+  }
+  try{
+    const canvas=await html2canvas(card,{scale:2,backgroundColor:"#ffffff",useCORS:true});
+    const link=document.createElement("a");
+    const roll=String(currentStudent?.roll_no||"student").replace(/[^a-zA-Z0-9_-]/g,"");
+    link.download=`SSVP_Exam_Form_${roll||"student"}.png`;
+    link.href=canvas.toDataURL("image/png");
+    link.click();
+  }catch(e){
+    console.error(e);
+    alert("Image download नहीं हो सका। कृपया दोबारा प्रयास करें।");
+  }
+}
+
+function goBack(){
+  $("formBox").classList.add("hidden");
+  $("loginBox").classList.remove("hidden");
+  setMessage("examMessage","","");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>
